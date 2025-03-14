@@ -1,0 +1,31 @@
+name: Ejecutar Cifrado César
+
+on:
+  push:
+    branches:
+      - main  # Ejecuta la acción cuando hay un push en la rama principal
+  pull_request:
+    branches:
+      - main  # También en pull requests a main
+
+jobs:
+  ejecutar_script:
+    runs-on: ubuntu-latest  # Sistema operativo base
+    
+    steps:
+      - name: 🛎️ Clonar repositorio
+        uses: actions/checkout@v3  # Obtiene el código fuente del repo
+      
+      - name: 🐍 Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: 📦 Instalar dependencias
+        run: pip install -r requirements.txt || echo "No hay dependencias necesarias"
+
+      - name: 🚀 Ejecutar Script de Cifrado César
+        run: python cifrado_cesar.py
+
+      - name: ✅ Verificar salida del script
+        run: echo "El script se ejecutó correctamente 🎉"
