@@ -1,0 +1,25 @@
+def cesar_cifrado(texto, clave, modo):
+    resultado = ""
+    for caracter in texto:
+        if caracter.isalpha():
+            desplazamiento = clave if modo == "cifrar" else -clave
+            inicio = ord('A') if caracter.isupper() else ord('a')
+            nuevo_caracter = chr((ord(caracter) - inicio + desplazamiento) % 26 + inicio)
+            resultado += nuevo_caracter
+        else:
+            resultado += caracter
+    return resultado
+
+if __name__ == "__main__":
+    print("--- Cifrado César ---")
+    opcion = input("Seleccione una opción (cifrar/descifrar): ").strip().lower()
+    if opcion not in ["cifrar", "descifrar"]:
+        print("Opción inválida. Use 'cifrar' o 'descifrar'.")
+    else:
+        mensaje = input("Ingrese el mensaje: ")
+        try:
+            clave = int(input("Ingrese la clave (número de desplazamiento): "))
+            resultado = cesar_cifrado(mensaje, clave, opcion)
+            print(f"Resultado: {resultado}")
+        except ValueError:
+            print("Error: La clave debe ser un número entero.")
